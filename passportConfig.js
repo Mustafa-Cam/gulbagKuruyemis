@@ -1,3 +1,5 @@
+//! BU DOSYAYI KULLANMADIK APP.JS DE YAPTIK BU İŞLEMLERİ USERNAMEFİELD:USERNAME YAZDIĞI İÇİN HATALI ZANNEDİYORDUM AMA EMAİL YAZMALIYDIK BU DOSYA ÖRNEK OLARAK VARDIR 
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
