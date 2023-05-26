@@ -1,0 +1,19 @@
+.mr{
+    margin-right:140px;
+}
+
+.container {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.leader{
+   font-size: 30px;
+}
+.btnsatinal{
+    margin-top:20px;
+    margin-left: 300px;
+}
+#custom-border {
+    border: 4px solid black;
+  }

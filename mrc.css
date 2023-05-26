@@ -1,0 +1,24 @@
+#font{
+    font-size: 24px;
+    color:black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+
+} 
+#font:hover{
+    background-color: blue;
+    color:yellow;
+    border: 3px inset red
+}
+.myh1{
+    font-size:64px;
+    font-family:"Courier New", monospace;
+}
+.mybtn{
+    margin-left: 157px;
+    font-weight: bold;
+}
+.fll{
+    font-size: 20px;
+    font-weight: 400;
+}

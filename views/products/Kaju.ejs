@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuruyemişci Siteniz - Ürün Detayı</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-************************************************************" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/products-detail.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+</head>
+
+<body>
+  <%- include('../includes/nav') %>
+
+  <div class="container-fluid py-4" style="margin-left: 0; padding-left: 0;">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="image-container">
+          <img class="img-fluid" src="/images/kaju-kavrulmus.jpg" style="max-width: 100%; height: 600px;" alt="Antep Fıstığı">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="display-4">Kaju</h1>
+            <p class="lead" id="price">210 TL/kg</p>
+            <p class="text-muted">Antep fıstığı, lezzetli bir atıştırmalık olarak bilinir. İnce kabuklu ve iri tanelidir. Hem sağlıklı hem de lezzetlidir.</p>
+      
+            <div class="form-group">
+              <label for="gramAmount">Gram Miktarı:</label>
+              <input type="number" id="gramAmount" class="form-control" min="0" step="1">
+            </div>
+      
+            <div class="form-group">
+              <label for="calculatedPrice">Toplam Fiyat:</label>
+              <input type="text"  class="form-control calculatedPrice" disabled>
+            </div>
+
+            <button class="btn btn-primary" onclick="calculatePrice()">Hesapla</button>
+            <label style="margin-left:500px ">Fiyat:</label> <input class="calculatedPrice" disabled style="width:100px">
+            <div>
+              <div class="btnsatinal">
+                <button class="btn btn-success" id="custom-border">Sepete Ekle</button>        
+                </div>   
+              </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+<script src="/js/main.js"></script>
+</html>

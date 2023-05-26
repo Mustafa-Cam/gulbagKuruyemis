@@ -1,0 +1,50 @@
+#font {
+    font-size: 24px;
+    color: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+  }
+  
+  .dropdown-menu {
+    margin-top: 0;
+  }
+  
+  .dropdown-menu .dropdown-menu {
+    left: 100%;
+    top: 0;
+    margin-left: 0;
+  }
+  
+#font:hover{
+    background-color: blue;
+    color:yellow;
+    /* border: 3px outset red;  bu kod olunca sayfa aşşağıya kayıyor*/ 
+    position: static;
+}
+
+
+button#font:hover {
+    outline: none; /* varsayılan border'ı kaldırır */
+  }
+  
+.myh1{
+    font-size:64px;
+    font-family:"Courier New", monospace;
+}
+.mybtn{
+    margin-left: 157px;
+    font-weight: bold;
+}
+.fll{
+    font-size: 20px;
+    font-weight: 400;
+}
+.resim {
+  background-image: url('https://images.pexels.com/photos/34109/animal-squirrel-sciurus-bird.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-repeat: no-repeat;
+  background-size: cover; 
+  min-height: 100vh;
+  margin-bottom: 0px;
+  margin-top: -50px;
+}
+
