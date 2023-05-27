@@ -31,24 +31,31 @@
             <h1 class="display-4">Badem</h1>
             <p class="lead" id="price">200 TL/kg</p>
             <p class="text-muted">Antep fıstığı, lezzetli bir atıştırmalık olarak bilinir. İnce kabuklu ve iri tanelidir. Hem sağlıklı hem de lezzetlidir.</p>
-      
+            <form action="/ekle" method="post">
+
+            <div class="form-group">
+              <label for="gramAmount">Ürün adı</label>
+              <input type="text"  class="form-control" name="name" value="Badem" readonly>
+            </div>
             <div class="form-group">
               <label for="gramAmount">Gram Miktarı:</label>
-              <input type="number" id="gramAmount" class="form-control" min="0" step="1">
+              <input type="number" id="gramAmount" name="amount" class="form-control" min="0" step="1">
             </div>
       
             <div class="form-group">
               <label for="calculatedPrice">Toplam Fiyat:</label>
-              <input type="text"  class="form-control calculatedPrice" disabled>
+              <input type="text"  class="form-control calculatedPrice" id="price" name="price" readonly>
             </div>
 
-            <button class="btn btn-primary" onclick="calculatePrice()">Hesapla</button>
+            <button type="button" class="btn btn-primary" onclick="calculatePrice()">Hesapla</button>
             <label style="margin-left:450px ">Fiyat:</label> <input class="calculatedPrice" disabled style="width:100px">
             <div>
               <div class="btnsatinal">
-                <button class="btn btn-success" id="custom-border">Sepete Ekle</button>        
+                <button type="submit" class="btn btn-success" id="custom-border">Sepete Ekle</button>        
                 </div>   
               </div>
+            </form>
+
           </div>
         </div>
       </div>
