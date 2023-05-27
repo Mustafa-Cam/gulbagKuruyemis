@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sepet</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    .product {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+    }
+
+    .product-name {
+      font-weight: bold;
+    }
+
+    .product-price {
+      color: #f44336;
+      font-weight: bold;
+    }
+
+    .delete-btn {
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background-color: #d32f2f;
+    }
+
+    .empty-cart {
+      text-align: center;
+      color: #888;
+      font-style: italic;
+    }
+
+    .go-back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #888;
+    }
+
+    .go-back-link:hover {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sepet</h1>
+    
+    <h2>Ürünler</h2>
+    <% if (sepet.length > 0) { %>
+      <% for (let i = 0; i < sepet.length; i++) { %>
+        <div class="product">
+          <div class="product-info">
+            <span class="product-name">Ürün Adı: <%= sepet[i].name %></span><br>
+            <span>Gram: <%= sepet[i].amount %> gr</span>
+          </div>
+          <div class="product-price">
+            Fiyat: <%= sepet[i].price %> TL
+          </div>
+          <button class="delete-btn" onclick="sil(<%= i %>)">Sil</button>
+        </div>
+      <% } %>
+    <% } else { %>
+      <p class="empty-cart">Sepetiniz boş.</p>
+    <% } %>
+    
+    <a class="go-back-link" href="/">Ürünler Sayfasına Geri Dön</a>
+  </div>
+
+  <script>
+    function sil(index) {
+      if (confirm("Bu ürünü sepetten silmek istediğinize emin misiniz?")) {
+        window.location.href = "/sil/" + index;
+      }
+    }
+  </script>
+</body>
+</html>

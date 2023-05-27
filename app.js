@@ -1,6 +1,8 @@
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
+
+
 const express = require('express');
 const session = require('express-session')
 const MySQLStore = require('express-mysql-session')(session);
@@ -13,6 +15,8 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 const flash = require('express-flash')
 const methodOverride = require('method-override')
+
+// const getcartitems =require("./public/js/main")
 
 const app = express();
 
@@ -59,7 +63,7 @@ const sessionStore = new MySQLStore({
 
 
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret:process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store:sessionStore
@@ -274,6 +278,31 @@ app.get('/logout', (req, res) => {
     }
     res.redirect('/login');
   });
+});
+
+let sepet =[];
+app.post('/ekle', (req, res) => {
+  const { amount, price,name } = req.body;
+
+  // Yeni ürün nesnesini sepete ekleyelim
+  sepet.push({ amount, price,name });
+  console.log(sepet)
+  // Sepet sayfasına yönlendirme
+  res.redirect('/sepet');
+});
+
+app.get('/sil/:index', (req, res) => {
+  const index = req.params.index;
+
+  // Belirtilen index'teki ürünü sepetten çıkaralım
+  sepet.splice(index, 1);
+
+  // Sepet sayfasına yönlendirme
+  res.redirect('/sepet');
+});
+
+app.get('/sepet', (req, res) => {
+  res.render('sepet', { sepet: sepet });
 });
 
 app.get('/' ,(req, res) => {
