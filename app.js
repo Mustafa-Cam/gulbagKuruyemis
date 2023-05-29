@@ -127,12 +127,12 @@ passport.deserializeUser((id, done) => {
 
 
 //#region uyegiriş sql sorgu kısmı
-app.post("/uyegiris",checkNotAuthenticated,passport.authenticate("local",{
-  successRedirect:"/",
-  failureRedirect:"girisYap",
-  failureFlash:true
-})
-)
+// app.post("/uyegiris",checkNotAuthenticated,passport.authenticate("local",{
+//   successRedirect:"/",
+//   failureRedirect:"girisYap",
+//   failureFlash:true
+// })
+// )
 //#endregion
 
 //#region
@@ -237,7 +237,7 @@ app.post('/register',async (req, res) => {
 
 // Kullanıcı girişi
 app.post('/login', passport.authenticate('local', {
-  successRedirect: '/dashboard',
+  successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: true
 }));
@@ -268,7 +268,8 @@ function checkNotAuthenticated(req, res, next){
 
 
 app.get('/dashboard', requireLogin, (req, res) => {
-  res.render('uyegiris/dashboard', { user: req.user });
+  var islogin=req.isAuthenticated();
+  res.render('uyegiris/dashboard', { user: req.user,islogin });
 });
 
 app.get('/logout', (req, res) => {
@@ -306,7 +307,8 @@ app.get('/sepet', (req, res) => {
 });
 
 app.get('/' ,(req, res) => {
-  res.render('index');
+  var islogin=req.isAuthenticated();
+  res.render('index', { islogin: islogin, sepet: sepet });
 });
 
 app.get('/login', (req, res) => {
@@ -323,7 +325,9 @@ app.get('/products' , (req, res) => {
 
 app.get('/product/:deger',requireLogin,(req, res) => {
   const deger =req.params.deger;
-  res.render(`products/${deger}`);
+  var islogin=req.isAuthenticated();
+
+  res.render(`products/${deger}`,{islogin: islogin, sepet: sepet});
 });
 
 const port = process.env.PORT || 3000;

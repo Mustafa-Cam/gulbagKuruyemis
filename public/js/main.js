@@ -19,6 +19,9 @@ function calculatePrice() {
 }
 
 
+  
+
+
  //! burda işlemimizi javascript yoluyla yapalım dedik ama node.js document gibi işlemleri tanımıyormuş yani app.js den göndermemiz gerektiği için sonucu orda node.js çalıştığı için document gibi işlemleri tanımıyor o yüzden ejs ikullanıyoruz zaten 
 //#region
 // senttobasket=()=>{

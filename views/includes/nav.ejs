@@ -6,9 +6,9 @@
           <h1 class="text-center text-white myh1">GÜLBAĞ KURUYEMİŞ VE BAKLİYAT</h1>
         </div>
         <div class="col-1">
-          <a href="/sepet" class="text-white">
+          <a href="/sepet" class="text-white position-relative">
             <i class="fas fa-shopping-basket fa-5x"></i>
-            
+            <span  id="cartItemCount" class="badge badge-danger rounded-circle position-absolute top-0 end-0" style="width:30px; padding:8px 0px"><%=sepet.length%></span>
           </a>
         </div>
       </div>
@@ -58,23 +58,38 @@
     </div>
     <div class=" ml-5">
       <!--giriş yap ve üye ol linki-->
-      <div class="card bg-info rounded" style="width: 20rem; margin-right: 30px; border-color: aqua;">
+      <div class="card bg-info rounded" style="width: 25rem; margin-right: 30px; border-color: aqua;">
         <div class="card-body">
-          <h5 class="card-title">Giriş Yap veya Üye Ol</h5>
+          <h5 class="card-title">Giriş / Kayıt / Çıkış</h5>
           <hr>
           <div class="row">
+            <% if(!islogin) { %>
             <div class="col-sm-6">
               <a href="/login" class="btn btn-warning btn-block">Giriş yap</a>
             </div>
+            <% } %>
+            <% if(!islogin) { %>
             <div class="col-sm-6">
               <a href="/register" class="btn btn-secondary btn-block">Üye Ol</a>
             </div>
+            <% } %>
+            <% if(islogin) { %>
+              <div class="col-sm-12">
+                <a href="/logout" class="btn btn-danger btn-block font-weight-bold">Çıkış Yap</a>
+              </div>
+              <% } %>
+
           </div>
         </div>
       </div>
       </div>
   </nav>
 </header>
+<script>
+   
+
+</script>
+<!-- <script src="/js/main.js"></script> -->
 <script src="/js/jquery.js"></script>
    
     

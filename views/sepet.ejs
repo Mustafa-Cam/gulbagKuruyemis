@@ -77,13 +77,56 @@
     .go-back-link:hover {
       color: #555;
     }
+    .total-price-box {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.total-price-label {
+  font-weight: bold;
+}
+
+.total-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff5500;
+}
+.buy-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #ff8800;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+  background-color: #ffaa33;
+}
+
+.buy-button:active {
+  background-color: #ff6600;
+}
+
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Sepet</h1>
     
-    <h2>Ürünler</h2>
+    <h2>Ürünler <span class="sepetlength"><%= sepet.length %></span></h2>
     <% if (sepet.length > 0) { %>
       <% for (let i = 0; i < sepet.length; i++) { %>
         <div class="product">
@@ -91,25 +134,48 @@
             <span class="product-name">Ürün Adı: <%= sepet[i].name %></span><br>
             <span>Gram: <%= sepet[i].amount %> gr</span>
           </div>
-          <div class="product-price">
+          <div class="product-price" >
             Fiyat: <%= sepet[i].price %> 
           </div>
-          <button class="delete-btn" onclick="sil(<%= i %>)">Sil</button>
+          <button class="delete-btn" onclick="sil(<%=i%>)">Sil</button>
         </div>
       <% } %>
     <% } else { %>
       <p class="empty-cart">Sepetiniz boş.</p>
     <% } %>
+    <div class="total-price-box">
+      <span class="total-price-label">Toplam Fiyat:</span>
+      <span class="total-price" id="pprice">0 Tl</span>
+    </div>
     
     <a class="go-back-link" href="/">Ürünler Sayfasına Geri Dön</a>
+
+    <button class="buy-button">Satın Al</button>
+
+    
+
   </div>
+
+  
 
   <script>
     function sil(index) {
       if (confirm("Bu ürünü sepetten silmek istediğinize emin misiniz?")) {
-        window.location.href = "/sil/" + index;
+        window.location.href = "/sil/" + index ; 
       }
     }
+    var totalPrice = 0;
+    var priceElements = document.getElementsByClassName("product-price");
+    for (var i = 0; i < priceElements.length; i++) {
+      var priceText = priceElements[i].textContent.trim();
+      var price = parseFloat(priceText.match(/[\d.]+/)[0]);
+      totalPrice += price;
+
+      var totalPriceElement = document.getElementById("pprice");
+      totalPriceElement.textContent = totalPrice.toFixed(2) + " TL";
+    }
+
+
   </script>
 </body>
 </html>
