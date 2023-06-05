@@ -240,7 +240,8 @@ app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: true
-}));
+})
+); 
 
 // Kullanıcı oturumu açma kontrolü
 const requireLogin = (req, res, next) => {
@@ -249,6 +250,26 @@ const requireLogin = (req, res, next) => {
   }
   res.redirect('/login');
 };
+
+app.post("/update",(req, res) => {
+  const {email,tel,address} = req.body;
+  // db.query('INSERT INTO profiles (profilemail, profiletel,profilestreet) values(?,?,?)',[email,tel,address],(err)=>{
+  //   if(err){
+  //     throw err;
+  //   }
+  // })
+  const useremail =req.user.usersemail;
+  const updateusers=`
+  update users set usersemail=${db.escape(email)},tel=${db.escape(tel)},address=${db.escape(address)} where usersemail=${db.escape(useremail)}
+  `
+  db.query(updateusers,(err,result)=>{
+    if (err) {
+      throw err;
+    }
+  })
+  res.redirect("/profile")
+})
+
 
 //#region authenticated
 function checkAuthenticated(req, res, next) {
@@ -304,6 +325,24 @@ app.get('/sil/:index', (req, res) => {
 
 app.get('/sepet', (req, res) => {
   res.render('sepet', { sepet: sepet });
+});
+
+app.get('/profile',requireLogin ,(req, res) => {
+  
+  if(req.isAuthenticated()){
+    
+    const email = req.user.usersemail;
+    db.query('select usersname,usersemail,tel,address from users where usersemail=?',[email],(err, result) => {
+      if(err){
+        throw err;
+      }
+      if(result.length > 0){
+        
+        console.log(result[0]);
+        res.render('profile',result[0]);
+      }
+    })
+  }
 });
 
 app.get('/' ,(req, res) => {

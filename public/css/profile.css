@@ -1,0 +1,107 @@
+/* Genel Stil */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.profile-header {
+    text-align: center;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-name {
+    margin-top: 10px;
+    margin-left: 310px;
+    text-transform: uppercase;
+}
+.main-btn{
+    height: 40px;
+    /* margin-right: 20px; */
+}
+.profile-description {
+    color: #888;
+    margin-left: 120px;
+}
+
+.profile-content h2 {
+    margin-top: 20px;
+}
+
+.contact-list,
+.address-list,
+.favorite-products {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-list li,
+.address-list li,
+.favorite-products li {
+    margin-bottom: 10px;
+}
+
+.contact-list i {
+    margin-right: 10px;
+    color: #888;
+}
+
+.update-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.update-button:hover {
+    background-color: #45a049;
+}
+strong{
+    font-weight: normal;
+    font-size: 20px;
+}
+i{
+    font-size: 20px;
+}
+/* Input Alanları */
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px #4CAF50;
+}

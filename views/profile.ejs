@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kuruyemiş Sitesi - Profil</title>
+    <link rel="stylesheet" href="../css/profile.css" />
+    <!-- Stil dosyası -->
+    <!--bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <!-- Font Awesome CSS dosyası -->
+  </head>
+  <body>
+    <div class="container">
+      <div class="profile">
+        <div class="profile-header">
+          <!-- <img src="profile-picture.jpg" alt="Profile Picture" class="profile-picture"> -->
+          <div class="row">
+            <div class="col-auto">
+                <a href="/" class="btn btn-primary main-btn">Ana Sayfaya Dön</a>
+            </div>
+            <div class="col">
+                <h1 class="profile-name ml-0"><%=usersname%></h1>
+            </div>
+        </div>
+          <p class="profile-description">Kuruyemiş Aşığı</p>
+        </div>
+        <div class="profile-content">
+            <form action="/update" method="post">
+          <h2>Hesap Bilgileri</h2>
+          <ul class="contact-list">
+            <li>
+              <i class="fas fa-envelope"></i>
+              <input type="text" value="<%=usersemail %>" class="input-email" name="email"/>
+            </li>
+            <li>
+              <i class="fas fa-phone"></i>
+              <input type="text" value="<%=tel%>" class="input-phone" name="tel"/>
+            </li>
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <input
+                type="text"
+                value="İSTANBUL/ŞİŞLİ/GÜLBAHAR MAHALLESİ"
+                class="input-address"
+                readonly
+              />
+            </li>
+          </ul>
+          <h2>Adres Bilgileri</h2>
+          <ul class="address-list">
+            <li>
+              <strong>Adres:</strong>
+              <input
+                type="text"
+                value="<%= address %>"
+                class="input-street"
+                placeholder="Lütfen sokak, apartman, zil, kat, kapı numarası bilgilerinizi giriniz"
+                name="address"
+              />
+            </li>
+            <li>
+              <strong>Şehir:</strong>
+              <input type="text" value="İSTANBUL/ŞİŞLİ" class="input-city"  readonly/>
+            </li>
+            <!-- <li>
+              <strong>Not</strong>
+              <input type="text" value="" class="input-city"  placeholder="Notunuz varsa girebilirsiniz"/>
+            </li> -->
+            
+          </ul>
+          <!-- <h2>Favori Ürünler</h2>
+                <ul class="favorite-products">
+                    <li><input type="text" value="Kavrulmuş Fındık" class="input-favorite-product"></li>
+                    <li><input type="text" value="Tuzlu Badem" class="input-favorite-product"></li>
+                    <li><input type="text" value="Çıtır Ceviz" class="input-favorite-product"></li>
+                </ul> -->
+        </div>
+        <button type="submit" class="update-button">
+          Güncelle
+        </button>
+    </form>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- JavaScript dosyası -->
+  </body>
+</html>

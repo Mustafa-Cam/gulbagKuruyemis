@@ -7,14 +7,30 @@
   
   .dropdown-menu {
     margin-top: 0;
+    background-color: #9ef1f1;
+
   }
-  
+  .dropdown-menu a {
+    display: block;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+  }
+  .dropdown-menu a:hover {
+    background-color: #63b8e3;
+  }
   .dropdown-menu .dropdown-menu {
     left: 100%;
     top: 0;
     margin-left: 0;
   }
-  
+  .dropdown-divider {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-top: 1px solid #ccc;
+  }
+
 #font:hover{
     background-color: blue;
     color:yellow;
