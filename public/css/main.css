@@ -4,7 +4,9 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: bold;
   }
-  
+  .container{
+    max-width: 1840px;
+  }
   .dropdown-menu {
     margin-top: 0;
     background-color: #9ef1f1;
