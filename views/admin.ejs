@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Sayfası</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">Ana Sayfa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Admin Paneli</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Çıkış Yap</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container mt-5">
+    <h1 class="mb-4">Hoş Geldiniz, Admin Kullanıcısı!</h1>
+    
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Yönetim Paneli</h2>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item"><a href="/admin/products">Ürünleri Yönet</a></li>
+          <li class="list-group-item"><a href="/admin/orders">Siparişleri Görüntüle</a></li>
+          <li class="list-group-item"><a href="/admin/customers">Müşterileri Yönet</a></li>
+          <li class="list-group-item"><a href="/admin/reports">Raporlar</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer class="mt-5 py-3 bg-dark text-white text-center">
+    <p>Telif Hakkı &copy; 2023 Kuruyemişci Sitesi</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

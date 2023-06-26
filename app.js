@@ -36,6 +36,7 @@ db.connect((err) => {
 });
 
 
+
 // middleare kısmı
 app.use(express.json());
 app.use(bodyParser.json());
@@ -66,7 +67,10 @@ app.use(session({
   secret:process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  store:sessionStore
+  store:sessionStore,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000, // Oturumun süresi (örneğin, 1 gün)
+  },                             
 }))
 
 app.use(passport.initialize())
@@ -80,12 +84,12 @@ const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
 
 const User = require('./models/User');
-
+const Admin = require('./models/Admin');
 
 //! Passport yerel kimlik doğrulama stratejisi ayarları
-passport.use(
+passport.use('user',
   new LocalStrategy(
-    { usernameField: 'email' },
+    { usernameField: 'email' }, 
     (email, password, done) => {
       // Kullanıcıyı veritabanından bulun
       User.findByUseremail(email, (err, user) => {
@@ -103,8 +107,11 @@ passport.use(
             return done(err);
           }
           if (result) {
+            // user.role değerini 'user' olarak atayın ve done fonksiyonuna geçirin
+            user.role = 'user';
             return done(null, user);
           }
+
           return done(null, false, { message: 'Geçersiz kullanıcı adı yada şifre' });
         });
       });
@@ -112,8 +119,99 @@ passport.use(
   )
 );
 
+ // Şifre doğrulaması yapın
+ //#region şifre islemi
+/*
+ const adminpassword= process.env.ADMİN_PASSWORD
+ console.log(adminpassword); 
+
+ bcrypt.hash(adminpassword, 10, (err, hash) => {
+   if (err) {
+     console.error(err);
+     return;
+   }
+
+   // Hashlenmiş şifreyi kullanabilirsiniz
+   console.log(hash);
+   console.log(adminpassword);
+   db.query('update admin set adminpassword=?', [hash], (err) => {
+     if (err) {
+       throw err;
+     }
+   });
+ });
+ */
+ //#endregion
+
+passport.use('admin',
+  new LocalStrategy(
+    { usernameField: 'email' },
+    (email, password, done) => {
+      // Kullanıcıyı veritabanından bulun
+      Admin.findByAdminemail(email, (err, admin) => {
+        if (err) {
+          return done(err);
+        }
+        if (!admin) {
+          return done(null, false, { message: 'Geçersiz kullanıcı adı veya şifre' });
+        }
+
+        bcrypt.compare(password, admin.adminpassword, (err, result) => {
+          if (err) {
+            return done(err);
+          }
+          if (result) {
+            // admin.role değerini 'admin' olarak atayın ve done fonksiyonuna geçirin
+            admin.role = 'admin';
+            return done(null, admin);
+          }
+          return done(null, false, { message: 'Geçersiz kullanıcı adı yada şifre' });
+        });
+      }); 
+    }
+  )
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// deserializeUser fonksiyonunu tanımlayalım
+passport.deserializeUser((id, done) => {
+  // User veya Admin veritabanından kullanıcıyı bulalım
+  User.findById(id, (err, user) => {
+    if (user) {
+      done(err, user);
+    } else {
+      Admin.findById(id, (err, admin) => {
+        done(err, admin);
+      });
+    }
+  });
+});
+
+// user ve admin local strategy
+
+
+
+
+
+
+// Admin kullanıcıları için serializeUser ve deserializeUser fonksiyonları
+
+
+// passport.deserializeUser(function(user, done) {
+//   if (user.role === 'admin') { 
+//     Admin.findById(user.id, function(err, admin) {
+//       done(err, admin);
+//     });
+//   } else {
+//     done(new Error('Invalid user role'));
+//   }
+// });
 
 // Oturum yönetimi için kullanıcıyı oturuma ekleyin
+/*
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -121,9 +219,50 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   // Kullanıcıyı veritabanından alın
   User.findById(id, (err, user) => {
+    // console.log(user)
     done(err, user);
   });
 });
+*/
+
+app.post('/login', (req, res, next) => {
+  const role = req.body.role;
+  let authenticateFn;
+
+  if (role === 'admin') {
+    authenticateFn = passport.authenticate('admin', {
+      successRedirect: '/admin',
+      failureRedirect: '/login',
+      failureFlash: true
+    });
+  } else if (role === 'user') {
+    authenticateFn = passport.authenticate('user', {
+      successRedirect: '/',
+      failureRedirect: '/login',
+      failureFlash: true
+    });
+  } else {
+    return res.redirect('/login');
+  }
+  authenticateFn(req, res);
+});
+
+
+
+// app.post('/login', passport.authenticate(['user', 'admin']), (req, res) => {
+//   // Giriş başarılıysa buraya gelecek
+//   const role = req.body.role;
+//     if(role=='admin'&& role!=='user'){
+//       res.redirect('/admin');
+//     }
+//     else if(role=='user'&&role!=='admin'){
+//       res.redirect('/');
+//     }
+//     else{
+//      return res.redirect('/login')
+//     }
+  
+// });
 
 
 //#region uyegiriş sql sorgu kısmı
@@ -156,6 +295,8 @@ passport.deserializeUser((id, done) => {
 
 // const initializePassport = require('./passportConfig')
 // initializePassport(passport,database.getUserByEmail ,database.getUserById)
+
+// Kullanıcı girişi
 
 
 //uyelik için 
@@ -235,14 +376,6 @@ app.post('/register',async (req, res) => {
 
 });
 
-// Kullanıcı girişi
-app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true
-})
-); 
-
 // Kullanıcı oturumu açma kontrolü
 const requireLogin = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -259,9 +392,7 @@ app.post("/update",(req, res) => {
   //   }
   // })
   const useremail =req.user.usersemail;
-  const updateusers=`
-  update users set usersemail=${db.escape(email)},tel=${db.escape(tel)},address=${db.escape(address)} where usersemail=${db.escape(useremail)}
-  `
+  const updateusers=`update users set usersemail=${db.escape(email)},tel=${db.escape(tel)},address=${db.escape(address)} where usersemail=${db.escape(useremail)}`
   db.query(updateusers,(err,result)=>{
     if (err) {
       throw err;
@@ -327,6 +458,8 @@ app.get('/sepet', (req, res) => {
   res.render('sepet', { sepet: sepet });
 });
 
+
+
 app.get('/profile',requireLogin ,(req, res) => {
   
   if(req.isAuthenticated()){
@@ -344,9 +477,78 @@ app.get('/profile',requireLogin ,(req, res) => {
     })
   }
 });
+app.get('/admin',(req,res) => {
+  var islogin=req.isAuthenticated();
+
+res.render('admin',{ islogin: islogin, sepet: sepet });
+});
+
+app.get('/admin/products',requireLogin,(req,res) => {
+  
+   db.query("SELECT * from products",(err, products) => {
+    if(err) {
+      throw err;
+    }
+    if(products.length > 0) {
+      res.render('admin/adminProducts.ejs',{products:products})
+    }
+   })
+})
+app.post("/productupdate",requireLogin,(req,res) => {
+
+      var name=req.body.productName
+      var price=req.body.productPrice
+      var stock=req.body.productStock
+      var id=req.body.productid
+
+    var updatequery = "UPDATE products set productsname=?,productsprice=?,productstock=? where id=?" 
+    console.log(id)      
+    db.query(updatequery,[name,price,stock,id],(err,res) => {
+      if (err) {
+        throw err
+      }
+      else{
+        console.log("aferin")
+      }
+    })  
+    res.redirect("/admin/products")
+})
+app.get("/admin/customers",requireLogin,(req,res) => {
+  db.query("SELECT * FROM users",(err,result) => {
+    if (err) {
+      throw err
+    }
+    if(result.length > 0){
+      res.render("admin/admincostumers.ejs",{costumers:result})
+    }
+  })
+})
+app.post("/costumersupdate",requireLogin,(req,res) => {
+  var name=req.body.productName
+      var name=req.body.username
+      var mail=req.body.useremail
+      var tel=req.body.tel
+      var adres=req.body.address
+      var id=req.body.productid
+
+    var updatequery = "UPDATE users set usersname=?,usersemail=?,tel=?,address=? where id=?" 
+    console.log(id)      
+    db.query(updatequery,[name,mail,tel,adres,id],(err,res) => {
+      if (err) {
+        throw err
+      }
+      else{
+        console.log("aferin kullanıcıyıda düzenledin")
+      }
+    })  
+    res.redirect("/admin/customers")
+})
 
 app.get('/' ,(req, res) => {
   var islogin=req.isAuthenticated();
+  console.log(islogin);
+  console.log(req.user);
+  console.log(req.session.passport);
   res.render('index', { islogin: islogin, sepet: sepet });
 });
 

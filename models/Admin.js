@@ -1,6 +1,6 @@
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+    require('dotenv').config()
+  }
 
 const mysql = require('mysql');
 
@@ -11,9 +11,9 @@ const db = mysql.createConnection({
   database: 'gulbagkuruyemis'
 });
 
-const User = {
-  findByUseremail: (email, callback) => {
-    db.query('SELECT * FROM users WHERE usersemail = ?', [email], (err, results) => {
+const Admin = {
+  findByAdminemail: (email, callback) => {
+    db.query('SELECT * FROM admin WHERE adminemail = ?', [email], (err, results) => {
       if (err) {
         return callback(err);
       }
@@ -25,7 +25,7 @@ const User = {
     });
   },
   findById: (id, callback) => {
-    db.query('SELECT * FROM users WHERE id = ?', [id], (err, results) => {
+    db.query('SELECT * FROM admin WHERE id = ?', [id], (err, results) => {
       if (err) {
         return callback(err);
       }
@@ -38,4 +38,4 @@ const User = {
   }
 };
 
-module.exports = User;
+module.exports = Admin;
