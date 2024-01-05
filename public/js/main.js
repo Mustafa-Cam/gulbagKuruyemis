@@ -6,22 +6,62 @@ function scrollToSection() {
   targetElement.scrollIntoView({ behavior: 'smooth' });
 }
 
-function calculatePrice() {
-  var gramAmount = document.getElementById("gramAmount").value;
-  var kilogramPrice = document.getElementById("price").innerText.split(" ")[0];
-  var totalPrice = (gramAmount / 1000) * kilogramPrice;
-  // document.querySelectorAll(".calculatedPrice").value = totalPrice.toFixed(2) + " TL";
+// function calculatePrice() {
+//   var gramAmount = document.getElementById("gramAmount").value;
+//   var kilogramPrice = document.getElementById("price").innerText.split(" ")[0];
+//   var totalPrice = (gramAmount / 1000) * kilogramPrice;
+//   // document.querySelectorAll(".calculatedPrice").value = totalPrice.toFixed(2) + " TL";
 
-  const fiyatlar =document.querySelectorAll(".calculatedPrice")
-  fiyatlar.forEach(element=>{
-    element.value =totalPrice.toFixed(2)+"TL";
-  })
+//   const fiyatlar =document.querySelectorAll(".calculatedPrice")
+//   fiyatlar.forEach(element=>{
+//     element.value =totalPrice.toFixed(2)+"TL";
+//   })
+// }
+
+  function calculateValues(type) {
+    // Gram miktarı ve fiyat alanlarına erişim
+    var gramAmountInput = document.getElementById('gramAmount');
+    var priceInput = document.getElementById('price');
+    let kgPrice = document.getElementById('pricee').innerText.split(" ")[0];
+    // Girilen değerleri al
+    var gramAmountValue = parseFloat(gramAmountInput.value) || 0;
+    var priceValue = parseFloat(priceInput.value) || 0;
+
+    // Hesaplamaları yap
+    if (type === 'gram') {
+      // Eğer gram miktarı değiştiyse, fiyatı güncelle
+      console.log(kgPrice);
+      priceInput.value =Math.ceil((gramAmountValue/1000*kgPrice).toFixed(2)); // Örnek bir hesaplama, isteğinize göre değiştirebilirsiniz
+    } else if (type === 'price') {
+      // Eğer fiyat değiştiyse, gram miktarını güncelle
+      gramAmountInput.value =Math.ceil((1000*(priceValue/kgPrice)).toFixed(2)); // Örnek bir hesaplama, isteğinize göre değiştirebilirsiniz
+    }
+  }
+
+// DOM'dan gerekli elementleri seç
+var gramAmountInput = document.getElementById('gramAmount');
+var priceInput = document.getElementById('price');
+var addToCartButton = document.getElementById('custom-border');
+
+// Form submit olduğunda tetiklenecek fonksiyon
+function handleFormSubmit(event) {
+  // Gram miktarı ve fiyatı al
+  var gramAmountValue = parseFloat(gramAmountInput.value) || 0;
+  var priceValue = parseFloat(priceInput.value) || 0;
+
+  // Kontrolleri yap
+  if (gramAmountValue <= 0 || priceValue <= 0 || priceValue < 50) {
+    // Kullanıcıya hata mesajı göster
+    alert('Lütfen geçerli bir gram miktarı ve fiyat girin (Fiyat en az 50 TL olmalıdır).');
+    // Formun submitini iptal et
+    event.preventDefault();
+  }
 }
 
+// Form submit olduğunda handleFormSubmit fonksiyonunu çağır
+document.querySelector('form').addEventListener('submit', handleFormSubmit);
 
   
-
-
  //! burda işlemimizi javascript yoluyla yapalım dedik ama node.js document gibi işlemleri tanımıyormuş yani app.js den göndermemiz gerektiği için sonucu orda node.js çalıştığı için document gibi işlemleri tanımıyor o yüzden ejs ikullanıyoruz zaten 
 //#region
 // senttobasket=()=>{

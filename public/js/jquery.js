@@ -15,3 +15,5 @@ $(document).ready(function() {
       $(".bakliyatlar-menu").removeClass("show");
     });
   });
+
+  

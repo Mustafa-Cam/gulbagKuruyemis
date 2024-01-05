@@ -122,7 +122,7 @@ passport.use('user',
  // Şifre doğrulaması yapın
  //#region şifre islemi
 /*
- const adminpassword= process.env.ADMİN_PASSWORD
+ const adminpassword= process.env.ADMIN_PASSWORD
  console.log(adminpassword); 
 
  bcrypt.hash(adminpassword, 10, (err, hash) => {
@@ -344,7 +344,7 @@ app.post('/register',async (req, res) => {
   // });
   //#endregion
 
-  //!chatgpt kısmı
+ 
   // try {
   //   const {ad,email,telefon,sifre } = req.body;
   //   const hashedPassword = await bcrypt.hash(sifre, 10);
@@ -477,9 +477,10 @@ app.get('/profile',requireLogin ,(req, res) => {
     })
   }
 });
+
 app.get('/admin',(req,res) => {
   var islogin=req.isAuthenticated();
-
+  
 res.render('admin',{ islogin: islogin, sepet: sepet });
 });
 

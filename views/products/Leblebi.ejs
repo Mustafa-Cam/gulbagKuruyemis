@@ -30,30 +30,25 @@
         <div class="card">
           <div class="card-body">
             <h1 class="display-4">Leblebi</h1>
-            <p class="lead" id="price">75 TL/kg</p>
+            <p class="lead" id="pricee">75 TL/kg</p>
             <p class="text-muted">Antep fıstığı, lezzetli bir atıştırmalık olarak bilinir. İnce kabuklu ve iri tanelidir. Hem sağlıklı hem de lezzetlidir.</p>
             <form action="/ekle" method="post">
-
-            <div class="form-group">
-              <label for="gramAmount">Ürün adı</label>
-              <input type="text"  class="form-control" name="name" value="Leblebi" readonly>
-            </div>
-            <div class="form-group">
-              <label for="gramAmount">Gram Miktarı:</label>
-              <input type="number" id="gramAmount" name="amount" class="form-control" min="0" step="1">
-            </div>
-      
-            <div class="form-group">
-              <label for="calculatedPrice">Toplam Fiyat:</label>
-              <input type="text"  class="form-control calculatedPrice" id="price" name="price" readonly>
-            </div>
-
-            <button type="button" class="btn btn-primary" onclick="calculatePrice()">Hesapla</button>
-            <label style="margin-left:450px ">Fiyat:</label> <input class="calculatedPrice" disabled style="width:100px">
-            <div>
-              <div class="btnsatinal">
-                <button type="submit" class="btn btn-success" id="custom-border">Sepete Ekle</button>        
-                </div>   
+              <div class="form-group">
+                <label for="gramAmount">Ürün adı</label>
+                <input type="text" class="form-control" name="name" value="Leblebi" readonly>
+              </div>
+              <div class="form-group">
+                <label for="gramAmount">Gram Miktarını giriniz:</label>
+                <input type="number" id="gramAmount" name="amount" class="form-control" min="0" step="1" oninput="calculateValues('gram')">
+              </div>
+              <div class="form-group">
+                <label for="calculatedPrice">Toplam Fiyat:</label>
+                <input type="number" class="form-control" id="price" name="price" oninput="calculateValues('price')">
+              </div>
+              <div>
+                <div class="btnsatinal">
+                  <button type="submit" class="btn btn-success" id="custom-border">Sepete Ekle</button>
+                </div>
               </div>
             </form>
 
